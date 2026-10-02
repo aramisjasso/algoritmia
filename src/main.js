@@ -113,7 +113,7 @@ btnTerminar.addEventListener('click', () => {
 
 btnSilencio.addEventListener('click', () => {
   const silenciada = alternarSilencio()
-  btnSilencio.textContent = silenciada ? '🔇' : '🔊'
+  btnSilencio.classList.toggle('silenciada', silenciada)
   btnSilencio.title = silenciada ? 'Activar música' : 'Silenciar música'
   btnSilencio.setAttribute('aria-label', btnSilencio.title)
 })
@@ -121,7 +121,7 @@ volumen.addEventListener('input', () => cambiarVolumen(Number(volumen.value)))
 
 alFallarMusica(() => {
   btnSilencio.disabled = volumen.disabled = true
-  btnSilencio.textContent = '🔇'
+  btnSilencio.classList.add('silenciada')
   btnSilencio.title = 'Sin música: no se encontró public/audio/musica.mp3'
 })
 
