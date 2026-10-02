@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Algoritmia · Práctica cronometrada</title>
+  </head>
+  <body>
+    <header class="barra">
+      <div class="marca">
+        <span class="logo">{ }</span>
+        <div>
+          <h1>Algoritmia</h1>
+          <p>3 ejercicios · 25 minutos</p>
+        </div>
+      </div>
+
+      <div id="reloj" class="reloj" role="timer">25:00</div>
+
+      <div class="controles">
+        <button id="btn-comenzar" class="boton principal">Comenzar</button>
+        <button id="btn-pausa" class="boton" hidden>Pausar</button>
+        <button id="btn-terminar" class="boton" hidden>Terminar</button>
+        <div class="musica">
+          <button id="btn-silencio" class="boton icono" aria-label="Silenciar música" title="Silenciar música">🔊</button>
+          <input id="volumen" type="range" min="0" max="1" step="0.05" value="0.5" aria-label="Volumen de la música" />
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <p id="aviso" class="aviso" role="status" hidden></p>
+
+      <section id="ejercicios" class="ejercicios">
+        <div class="bienvenida">
+          <h2>¿Listo para competir?</h2>
+          <p>
+            Al presionar <strong>Comenzar</strong> te tocan tres ejercicios, uno de cada nivel, y empieza una
+            cuenta regresiva de 25 minutos. De vez en cuando la suerte se pone exigente y la ronda trae
+            dos de nivel 3.
+          </p>
+          <p>Lee con calma, planea antes de programar y cuida el reloj.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="pie">
+      <span id="estadisticas"></span>
+      <button id="btn-historial" class="enlace">Borrar historial</button>
+    </footer>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
