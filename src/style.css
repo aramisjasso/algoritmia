@@ -89,6 +89,15 @@ h3 {
   letter-spacing: -0.01em;
 }
 
+.marca h1 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.marca h1 a:hover {
+  color: var(--acento);
+}
+
 .marca h1::after {
   content: '';
   display: inline-block;
@@ -168,7 +177,8 @@ h3 {
 }
 
 .boton:focus-visible,
-.enlace:focus-visible {
+.enlace:focus-visible,
+.marca h1 a:focus-visible {
   outline: 2px solid var(--acento);
   outline-offset: 2px;
 }
@@ -514,6 +524,7 @@ h3 {
   .controles {
     grid-area: 1 / 2;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: flex-end;
   }
 
