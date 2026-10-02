@@ -16,7 +16,22 @@ La música de fondo es opcional: coloca un archivo en `public/audio/musica.mp3`.
 
 ## Cómo añadir ejercicios
 
-Los ejercicios están en [`src/data/ejercicios.json`](src/data/ejercicios.json). Se puede editar directo desde GitHub (botón del lápiz) y, al guardar en `main`, la página se vuelve a publicar sola.
+Cada ejercicio es un archivo JSON en [`src/data/ejercicios/`](src/data/ejercicios/), con el nombre `<id>.json`. Al llegar un archivo nuevo a `main`, la página se vuelve a publicar sola.
+
+### Con el formulario (recomendado)
+
+La página **Agregar ejercicio** (enlace al pie de la página principal, o `/agregar.html`) tiene un formulario con vista previa en vivo. El JSON se arma y se escapa solo. Al terminar hay dos caminos:
+
+- **Enviar a GitHub**: abre GitHub con el archivo ya escrito en la carpeta correcta. Si eres colaborador del repo, solo confirma el commit. Si no, GitHub te ofrece hacer un fork y abrir un pull request, que alguien con acceso revisa y acepta.
+- **Copiar JSON / Descargar .json**: para quien no tiene cuenta de GitHub. Se manda el archivo a quien administra el repo.
+
+El borrador se guarda en el navegador, así que no se pierde al recargar.
+
+### Agregar un JSON que te mandaron
+
+En GitHub, entra a `src/data/ejercicios/` y usa **Add file → Upload files** para subir el `.json`, o **Add file → Create new file** si te lo pegaron como texto (llámalo `<id>.json`). Si el `id` ya existe, cámbialo antes de guardar.
+
+### A mano
 
 Cada ejercicio tiene esta forma:
 
@@ -35,7 +50,7 @@ Como todo va dentro de un string JSON, hay que escapar algunas cosas:
 - Barra invertida → `\\` (importante en LaTeX: `$\\log n$`, `$\\le$`).
 - Bloque de código → tres acentos graves con el lenguaje (`python`, `c`, `cpp`, `java`, `javascript`) y `\n` en cada línea.
 
-Ejemplo completo (agrégalo dentro de los corchetes `[ ]`, separado del anterior con una coma):
+Ejemplo completo de un archivo (`src/data/ejercicios/n1-contar-vocales.json`):
 
 ````json
 {
@@ -57,7 +72,7 @@ Ejemplo completo (agrégalo dentro de los corchetes `[ ]`, separado del anterior
 }
 ````
 
-Antes de guardar, revisa que no falte ni sobre una coma: si el JSON queda mal, la compilación falla y la página no se actualiza (lo verás en la pestaña **Actions** del repo).
+Si un archivo queda con JSON mal formado (una coma de más, comillas sin escapar), la compilación falla y la página no se actualiza; lo verás en la pestaña **Actions** del repo. Un archivo con JSON válido pero sin los campos obligatorios se ignora con un aviso en la consola.
 
 ## Despliegue
 

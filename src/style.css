@@ -159,31 +159,43 @@ h3 {
   gap: 0.6rem;
 }
 
+/* Los botones toman sus colores del contexto: el panel oscuro los redefine. */
+.panel {
+  --boton-borde: var(--panel-borde);
+  --boton-texto: var(--panel-texto);
+  --boton-hover: var(--panel-borde);
+  --foco: var(--acento);
+}
+
 .boton {
+  display: inline-block;
   font-family: var(--titulos);
   font-size: 1rem;
   font-weight: 700;
+  text-align: center;
+  text-decoration: none;
   padding: 0.7rem 1rem;
-  border: 1px solid var(--panel-borde);
+  border: 1px solid var(--boton-borde, var(--borde));
   border-radius: 8px;
   background: transparent;
-  color: var(--panel-texto);
+  color: var(--boton-texto, var(--texto));
   cursor: pointer;
   transition: background 0.15s, border-color 0.15s;
 }
 
-.boton:hover:not(:disabled) {
-  background: var(--panel-borde);
+.boton:hover:not(:disabled, [aria-disabled='true']) {
+  background: var(--boton-hover, var(--codigo));
 }
 
 .boton:focus-visible,
 .enlace:focus-visible,
 .marca h1 a:focus-visible {
-  outline: 2px solid var(--acento);
+  outline: 2px solid var(--foco, var(--enlace));
   outline-offset: 2px;
 }
 
-.boton:disabled {
+.boton:disabled,
+.boton[aria-disabled='true'] {
   opacity: 0.4;
   cursor: not-allowed;
 }
@@ -194,7 +206,7 @@ h3 {
   color: var(--sobre-acento);
 }
 
-.boton.principal:hover {
+.boton.principal:hover:not(:disabled, [aria-disabled='true']) {
   background: #d8fb86;
 }
 
@@ -448,6 +460,17 @@ h3 {
   color: var(--texto-suave);
 }
 
+.pie-enlaces {
+  display: flex;
+  gap: 1.25rem;
+}
+
+.pie a,
+.consejo a {
+  color: var(--enlace);
+  font-weight: 600;
+}
+
 .enlace {
   font: inherit;
   background: none;
@@ -460,6 +483,221 @@ h3 {
 
 .enlace:hover {
   color: var(--texto);
+}
+
+/* ---------- Página para agregar ejercicios ---------- */
+
+.principal-contenido.ancho {
+  max-width: 1400px;
+}
+
+.titulo-pagina {
+  margin: 0.5rem 0 0.75rem;
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  letter-spacing: -0.02em;
+}
+
+.intro {
+  max-width: 75ch;
+  margin: 0 0 2rem;
+  color: var(--texto-suave);
+}
+
+.editor {
+  display: grid;
+  gap: 2rem;
+}
+
+@media (min-width: 1280px) {
+  .editor {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .vista-previa {
+    position: sticky;
+    top: 1.5rem;
+    max-height: calc(100vh - 3rem);
+    overflow-y: auto;
+  }
+}
+
+.formulario {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.campo {
+  display: grid;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  border: none;
+  min-width: 0;
+}
+
+.campo > span,
+.campo legend,
+.campo-titulo {
+  font-family: var(--titulos);
+  font-weight: 700;
+  padding: 0;
+}
+
+.campo small,
+.campo-titulo small {
+  color: var(--texto-suave);
+  font-size: 0.85rem;
+  font-family: inherit;
+  font-weight: 400;
+}
+
+.formulario input[type='text'],
+.formulario textarea {
+  width: 100%;
+  font: inherit;
+  color: var(--texto);
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  padding: 0.6rem 0.75rem;
+}
+
+.formulario textarea {
+  font-family: var(--mono);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+.formulario input:focus,
+.formulario textarea:focus {
+  outline: 2px solid var(--enlace);
+  outline-offset: -1px;
+  border-color: transparent;
+}
+
+.selector-nivel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.4rem;
+}
+
+.selector-nivel label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.8rem;
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.selector-nivel input {
+  accent-color: var(--nivel);
+}
+
+.selector-nivel label:has(input:checked) {
+  border-color: var(--nivel);
+  color: var(--nivel);
+  background: color-mix(in srgb, var(--nivel) 10%, transparent);
+}
+
+.lista-ejemplos {
+  display: grid;
+  gap: 1rem;
+}
+
+.ejemplo-editor {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 1rem;
+  border: 1px solid var(--borde);
+  border-radius: 10px;
+  background: var(--superficie);
+  min-width: 0;
+}
+
+.ejemplo-editor label {
+  display: grid;
+  gap: 0.3rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--texto-suave);
+}
+
+.ejemplo-encabezado {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ejemplo-numero {
+  font-family: var(--titulos);
+  font-weight: 700;
+}
+
+#btn-agregar-ejemplo {
+  justify-self: start;
+}
+
+.vista-previa h3,
+.envio h3 {
+  margin: 0 0 0.75rem;
+  font-size: 1.1rem;
+}
+
+.envio {
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--borde);
+}
+
+.errores {
+  margin: 0 0 1rem;
+  padding-left: 1.2rem;
+  color: var(--nivel-3);
+}
+
+.errores:empty {
+  display: none;
+}
+
+.acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.nota {
+  min-height: 1.5em;
+  margin: 0.75rem 0;
+  font-size: 0.9rem;
+  color: var(--texto-suave);
+}
+
+.envio details {
+  margin: 1rem 0;
+}
+
+.envio summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.envio pre {
+  margin: 0.75rem 0 0;
+  padding: 0.8rem 1rem;
+  overflow-x: auto;
+  max-height: 24rem;
+  background: var(--codigo);
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  font-family: var(--mono);
+  font-size: 0.85rem;
 }
 
 /* ---------- Tableta y celular: el panel se vuelve una barra fija arriba ---------- */

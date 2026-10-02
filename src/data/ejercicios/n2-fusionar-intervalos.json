@@ -1,0 +1,18 @@
+{
+  "id": "n2-fusionar-intervalos",
+  "nivel": 2,
+  "titulo": "Fusionar intervalos",
+  "enunciado": "Recibes $n$ intervalos cerrados $[l_i, r_i]$ en cualquier orden. Fusiona todos los que se traslapan (o se tocan en un extremo) e imprime los intervalos resultantes ordenados por su inicio.\n\nOrdena primero los intervalos por $l_i$ y después recórrelos una vez, extendiendo el intervalo actual mientras sea posible. Complejidad esperada: $O(n \\log n)$.\n\n**Restricciones:** $1 \\le n \\le 10^5$, $0 \\le l_i \\le r_i \\le 10^9$.",
+  "ejemplos": [
+    {
+      "entrada": "4\n8 10\n1 3\n2 6\n15 18",
+      "salida": "1 6\n8 10\n15 18",
+      "explicacion": "$[1, 3]$ y $[2, 6]$ se traslapan y forman $[1, 6]$."
+    },
+    {
+      "entrada": "2\n1 4\n4 5",
+      "salida": "1 5",
+      "explicacion": "Se tocan en el 4, así que se fusionan."
+    }
+  ]
+}

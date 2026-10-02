@@ -1,9 +1,9 @@
 import './style.css'
-import banco from './data/ejercicios.json'
+import { banco } from './banco.js'
 import { sortear, leerHistorial, borrarHistorial } from './sorteo.js'
 import { crearTemporizador, formatear } from './temporizador.js'
 import { crearTarjeta } from './render.js'
-import { temaActual, alternarTema } from './tema.js'
+import { conectarBotonTema } from './tema.js'
 import {
   reproducirMusica,
   pausarMusica,
@@ -188,15 +188,5 @@ $('#btn-historial').addEventListener('click', () => {
   }
 })
 
-const btnTema = $('#btn-tema')
-function etiquetarBotonTema() {
-  btnTema.title = temaActual() === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'
-  btnTema.setAttribute('aria-label', btnTema.title)
-}
-btnTema.addEventListener('click', () => {
-  alternarTema()
-  etiquetarBotonTema()
-})
-
-etiquetarBotonTema()
+conectarBotonTema($('#btn-tema'))
 actualizarEstadisticas()

@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      // Aplica el tema antes de pintar para evitar un parpadeo (ver src/tema.js).
+      try {
+        document.documentElement.dataset.theme =
+          localStorage.getItem('algoritmia:tema') ??
+          (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+      } catch {}
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Agregar ejercicio · Algoritmia</title>
+  </head>
+  <body>
+    <div class="app">
+      <aside class="panel">
+        <div class="marca">
+          <h1><a href="./" title="Volver al sorteo">Algoritmia</a></h1>
+          <p>Agregar ejercicio</p>
+        </div>
+
+        <div class="ajustes">
+          <a class="boton" href="./">Volver al sorteo</a>
+          <button id="btn-tema" class="boton icono" aria-label="Cambiar a modo oscuro" title="Cambiar a modo oscuro">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <g class="sol" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <circle cx="12" cy="12" r="4" />
+                <path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+              </g>
+              <path class="luna" d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor" />
+            </svg>
+          </button>
+        </div>
+      </aside>
+
+      <main class="principal-contenido ancho">
+        <h2 class="titulo-pagina">Agregar un ejercicio</h2>
+        <p class="intro">
+          Llena el formulario y revisa la vista previa. Si tienes cuenta de GitHub, <strong>Enviar a GitHub</strong>
+          abre el archivo ya escrito: solo confirma el commit (o el pull request, si no eres colaborador). Si no
+          tienes cuenta, copia o descarga el JSON y mándaselo a quien administra el banco.
+        </p>
+
+        <div class="editor">
+          <form id="formulario" class="formulario" novalidate>
+            <fieldset class="campo">
+              <legend>Nivel</legend>
+              <div class="selector-nivel">
+                <label class="nivel-1"><input type="radio" name="nivel" value="1" checked /> Nivel 1 · Directo</label>
+                <label class="nivel-2"><input type="radio" name="nivel" value="2" /> Nivel 2 · Técnica clásica</label>
+                <label class="nivel-3"><input type="radio" name="nivel" value="3" /> Nivel 3 · Diseño</label>
+              </div>
+            </fieldset>
+
+            <label class="campo">
+              <span>Título</span>
+              <input id="titulo" type="text" maxlength="120" placeholder="Ej.: Subarreglo de suma máxima" />
+            </label>
+
+            <label class="campo">
+              <span>Identificador</span>
+              <input id="id" type="text" maxlength="60" spellcheck="false" />
+              <small>Se genera solo a partir del nivel y el título; será el nombre del archivo. Solo minúsculas, números y guiones.</small>
+            </label>
+
+            <label class="campo">
+              <span>Enunciado</span>
+              <small>
+                Markdown: <code>**negritas**</code>, listas, <code>`código`</code>. Fórmulas con
+                <code>$O(n \log n)$</code>. Bloques de código con tres acentos graves y el lenguaje
+                (<code>python</code>, <code>c</code>, <code>cpp</code>, <code>java</code>, <code>javascript</code>).
+              </small>
+              <textarea id="enunciado" rows="14" spellcheck="true"></textarea>
+            </label>
+
+            <div class="campo">
+              <span class="campo-titulo">Ejemplos <small>(opcionales)</small></span>
+              <div id="lista-ejemplos" class="lista-ejemplos"></div>
+              <button id="btn-agregar-ejemplo" type="button" class="boton">Agregar ejemplo</button>
+            </div>
+          </form>
+
+          <section class="vista-previa" aria-label="Vista previa">
+            <h3>Vista previa</h3>
+            <div id="vista-previa"></div>
+          </section>
+        </div>
+
+        <section class="envio">
+          <h3>Enviar</h3>
+          <ul id="errores" class="errores"></ul>
+          <div class="acciones">
+            <a id="btn-github" class="boton principal" target="_blank" rel="noopener">Enviar a GitHub</a>
+            <button id="btn-copiar" type="button" class="boton">Copiar JSON</button>
+            <button id="btn-descargar" type="button" class="boton">Descargar .json</button>
+          </div>
+          <p id="nota-envio" class="nota"></p>
+          <details>
+            <summary>Ver JSON</summary>
+            <pre id="json"></pre>
+          </details>
+          <button id="btn-limpiar" type="button" class="enlace">Empezar de nuevo</button>
+        </section>
+      </main>
+    </div>
+
+    <template id="plantilla-ejemplo">
+      <fieldset class="ejemplo-editor">
+        <div class="ejemplo-encabezado">
+          <span class="ejemplo-numero"></span>
+          <button type="button" class="enlace quitar">Quitar</button>
+        </div>
+        <div class="entrada-salida">
+          <label><span>Entrada</span><textarea class="entrada" rows="4" spellcheck="false"></textarea></label>
+          <label><span>Salida</span><textarea class="salida" rows="4" spellcheck="false"></textarea></label>
+        </div>
+        <label><span>Explicación <small>(opcional)</small></span><input class="explicacion" type="text" /></label>
+      </fieldset>
+    </template>
+
+    <script type="module" src="/src/agregar.js"></script>
+  </body>
+</html>

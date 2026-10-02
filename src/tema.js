@@ -48,6 +48,19 @@ export function alternarTema() {
   return elegido
 }
 
+// Conecta el botón de sol/luna: cambia el tema y actualiza su etiqueta.
+export function conectarBotonTema(boton) {
+  const etiquetar = () => {
+    boton.title = temaActual() === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'
+    boton.setAttribute('aria-label', boton.title)
+  }
+  boton.addEventListener('click', () => {
+    alternarTema()
+    etiquetar()
+  })
+  etiquetar()
+}
+
 // Si no hay elección guardada, seguimos los cambios del sistema en vivo.
 sistemaOscuro.addEventListener('change', () => {
   if (!elegido) aplicar(temaActual())

@@ -1,0 +1,12 @@
+{
+  "id": "n2-primera-posicion-binaria",
+  "nivel": 2,
+  "titulo": "Primera posición en arreglo ordenado",
+  "enunciado": "Tienes un arreglo de $n$ enteros **ordenado de forma no decreciente** (puede tener repetidos) y $q$ consultas. Para cada consulta `x`, imprime la posición de la **primera** aparición de `x`, o `-1` si no está.\n\nUn recorrido lineal por consulta cuesta $O(n \\cdot q)$, demasiado para los límites. Usa búsqueda binaria para responder cada consulta en $O(\\log n)$.\n\n**Restricciones:** $1 \\le n, q \\le 2 \\cdot 10^5$.\n\n> Pista: cuando encuentres `x`, no te detengas; sigue buscando en la mitad izquierda.",
+  "ejemplos": [
+    {
+      "entrada": "8 3\n1 2 2 2 5 7 7 9\n2\n7\n4",
+      "salida": "1\n5\n-1"
+    }
+  ]
+}

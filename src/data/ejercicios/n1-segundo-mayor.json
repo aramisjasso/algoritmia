@@ -1,0 +1,17 @@
+{
+  "id": "n1-segundo-mayor",
+  "nivel": 1,
+  "titulo": "El segundo mayor",
+  "enunciado": "Dado un arreglo de $n$ enteros, encuentra el **segundo valor más grande distinto**. Si todos los elementos son iguales (o $n = 1$), imprime `NO EXISTE`.\n\nNo está permitido ordenar el arreglo: hazlo en un solo recorrido, en $O(n)$. Ten cuidado con los valores negativos y los repetidos.\n\n**Restricciones:** $1 \\le n \\le 10^5$, $-10^9 \\le a_i \\le 10^9$.",
+  "ejemplos": [
+    {
+      "entrada": "6\n5 9 2 9 7 1",
+      "salida": "7",
+      "explicacion": "El mayor es 9 (aparece dos veces); el siguiente valor distinto es 7."
+    },
+    {
+      "entrada": "3\n-4 -4 -4",
+      "salida": "NO EXISTE"
+    }
+  ]
+}

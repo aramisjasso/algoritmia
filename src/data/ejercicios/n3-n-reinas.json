@@ -1,0 +1,16 @@
+{
+  "id": "n3-n-reinas",
+  "nivel": 3,
+  "titulo": "Las N reinas",
+  "enunciado": "Cuenta de cuántas formas se pueden colocar $N$ reinas en un tablero de ajedrez de $N \\times N$ de modo que ninguna ataque a otra (no puede haber dos en la misma fila, columna o diagonal).\n\nUsa **backtracking**: coloca una reina por fila y poda en cuanto una posición quede atacada. Para verificar los ataques en $O(1)$, lleva registro de las columnas y de las dos diagonales ocupadas (las celdas de una diagonal comparten $f - c$; las de la otra, $f + c$).\n\n```cpp\n// Esqueleto sugerido en C++\nint contar(int fila, int n, vector<bool>& col,\n           vector<bool>& diag1, vector<bool>& diag2);\n```\n\n**Restricciones:** $1 \\le N \\le 12$.",
+  "ejemplos": [
+    {
+      "entrada": "4",
+      "salida": "2"
+    },
+    {
+      "entrada": "8",
+      "salida": "92"
+    }
+  ]
+}

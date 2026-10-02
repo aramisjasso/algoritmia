@@ -1,0 +1,13 @@
+{
+  "id": "n3-mochila-01",
+  "nivel": 3,
+  "titulo": "Mochila 0/1",
+  "enunciado": "Tienes $n$ objetos; el objeto $i$ pesa $w_i$ y vale $v_i$. Tu mochila soporta un peso máximo $W$. Elige un subconjunto de objetos (cada uno se toma completo o no se toma) que **maximice el valor total** sin exceder $W$.\n\nProbar todos los subconjuntos cuesta $O(2^n)$. Plantea una **programación dinámica** donde $dp[i][c]$ sea el mejor valor usando los primeros $i$ objetos con capacidad $c$:\n\n$$dp[i][c] = \\max(dp[i-1][c],\\; dp[i-1][c - w_i] + v_i)$$\n\nComplejidad esperada: $O(n \\cdot W)$. Reto extra: usa solo un arreglo de tamaño $W + 1$.\n\n```java\n// Firma sugerida en Java\nstatic int mochila(int[] peso, int[] valor, int W)\n```\n\n**Restricciones:** $1 \\le n \\le 100$, $1 \\le W \\le 10^5$.",
+  "ejemplos": [
+    {
+      "entrada": "4 7\n1 1\n3 4\n4 5\n5 7",
+      "salida": "9",
+      "explicacion": "Los objetos de peso 3 y 4 suman peso 7 y valor $4 + 5 = 9$."
+    }
+  ]
+}

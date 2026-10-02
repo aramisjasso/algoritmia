@@ -1,0 +1,17 @@
+{
+  "id": "n2-par-con-suma",
+  "nivel": 2,
+  "titulo": "Par con suma objetivo",
+  "enunciado": "Dado un arreglo **ordenado** de $n$ enteros distintos y un entero $k$, encuentra dos posiciones (empezando en 0) $i < j$ tales que $a_i + a_j = k$. Si hay varias respuestas, imprime la que tenga la $i$ más pequeña. Si no existe ninguna, imprime `-1`.\n\nLa solución esperada usa la técnica de **dos punteros**: uno empieza al inicio y otro al final, y en cada paso se mueve uno de ellos. Complejidad esperada: $O(n)$ en tiempo y $O(1)$ en memoria.\n\n```c\n// Firma sugerida en C\nint par_con_suma(const int *a, int n, int k, int *i, int *j);\n```",
+  "ejemplos": [
+    {
+      "entrada": "6 12\n1 3 4 6 8 11",
+      "salida": "0 5",
+      "explicacion": "$1 + 11 = 12$. También $4 + 8 = 12$, pero la respuesta con la $i$ más pequeña es $(0, 5)$."
+    },
+    {
+      "entrada": "4 100\n1 2 3 4",
+      "salida": "-1"
+    }
+  ]
+}

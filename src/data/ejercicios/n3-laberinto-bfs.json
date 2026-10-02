@@ -1,0 +1,17 @@
+{
+  "id": "n3-laberinto-bfs",
+  "nivel": 3,
+  "titulo": "Salida del laberinto",
+  "enunciado": "Un laberinto es una cuadrícula de $R \\times C$ celdas: `.` es libre, `#` es pared, `S` es la entrada y `E` la salida. En cada paso te mueves a una celda vecina libre (arriba, abajo, izquierda o derecha).\n\nImprime el **mínimo número de pasos** para ir de `S` a `E`, o `-1` si es imposible.\n\nModela la cuadrícula como un grafo no ponderado y usa **búsqueda en anchura (BFS)**. Complejidad esperada: $O(R \\cdot C)$.\n\n**Restricciones:** $1 \\le R, C \\le 1000$.",
+  "ejemplos": [
+    {
+      "entrada": "4 5\nS.#..\n.##.#\n...#E\n#....",
+      "salida": "8"
+    },
+    {
+      "entrada": "2 3\nS#E\n.#.",
+      "salida": "-1",
+      "explicacion": "La columna de paredes separa la entrada de la salida."
+    }
+  ]
+}
