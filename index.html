@@ -4,38 +4,41 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="color-scheme" content="light dark" />
+    <script>
+      // Aplica el tema antes de pintar para evitar un parpadeo (ver src/tema.js).
+      try {
+        document.documentElement.dataset.theme =
+          localStorage.getItem('algoritmia:tema') ??
+          (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+      } catch {}
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap"
       rel="stylesheet"
     />
     <title>Algoritmia · Práctica cronometrada</title>
   </head>
   <body>
-    <header class="encabezado">
-      <div class="contenido encabezado-interior">
-        <svg class="emblema" viewBox="0 0 32 32" aria-hidden="true">
-          <circle cx="16" cy="18" r="11" fill="none" stroke="currentColor" stroke-width="3" />
-          <rect x="13" y="2" width="6" height="4" fill="currentColor" />
-          <path d="M16 18V11" stroke="currentColor" stroke-width="3" stroke-linecap="square" />
-        </svg>
-        <div>
-          <h1>Algoritmia y Programación</h1>
-          <p>Práctica cronometrada: tres ejercicios en 25 minutos</p>
+    <div class="app">
+      <aside class="panel">
+        <div class="marca">
+          <h1>Algoritmia</h1>
+          <p>Práctica cronometrada</p>
         </div>
-      </div>
-    </header>
 
-    <div class="banda">
-      <div class="contenido banda-interior">
-        <div id="reloj" class="reloj" role="timer">25:00</div>
+        <div class="tablero">
+          <div id="reloj" class="reloj" role="timer">25:00</div>
+          <div class="progreso" aria-hidden="true"><span id="barra-progreso"></span></div>
+          <div class="controles">
+            <button id="btn-comenzar" class="boton principal">Comenzar</button>
+            <button id="btn-pausa" class="boton" hidden>Pausar</button>
+            <button id="btn-terminar" class="boton" hidden>Terminar</button>
+          </div>
+        </div>
 
-        <div class="controles">
-          <button id="btn-comenzar" class="boton principal">Comenzar</button>
-          <button id="btn-pausa" class="boton" hidden>Pausar</button>
-          <button id="btn-terminar" class="boton" hidden>Terminar</button>
+        <div class="ajustes">
           <div class="musica">
             <button id="btn-silencio" class="boton icono" aria-label="Silenciar música" title="Silenciar música">
               <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -46,37 +49,43 @@
             </button>
             <input id="volumen" type="range" min="0" max="1" step="0.05" value="0.5" aria-label="Volumen de la música" />
           </div>
+          <button id="btn-tema" class="boton icono" aria-label="Cambiar a modo oscuro" title="Cambiar a modo oscuro">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <g class="sol" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <circle cx="12" cy="12" r="4" />
+                <path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+              </g>
+              <path class="luna" d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor" />
+            </svg>
+          </button>
         </div>
-      </div>
+      </aside>
+
+      <main class="principal-contenido">
+        <p id="aviso" class="aviso" role="status" hidden></p>
+
+        <section id="ejercicios" class="ejercicios">
+          <div class="bienvenida">
+            <h2>Tres problemas. Veinticinco minutos.</h2>
+            <p>
+              Al presionar <strong>Comenzar</strong> te tocan tres ejercicios, uno de cada nivel, y arranca la
+              cuenta regresiva. De vez en cuando la suerte se pone exigente y la ronda trae dos de nivel 3.
+            </p>
+            <ul class="niveles">
+              <li class="nivel-1"><strong>Nivel 1</strong><span>Recorridos, búsqueda lineal y cadenas.</span></li>
+              <li class="nivel-2"><strong>Nivel 2</strong><span>Búsqueda binaria, dos punteros, ordenamiento, recursión.</span></li>
+              <li class="nivel-3"><strong>Nivel 3</strong><span>Programación dinámica, grafos, backtracking.</span></li>
+            </ul>
+            <p class="consejo">Lee con calma, planea antes de programar y cuida el reloj.</p>
+          </div>
+        </section>
+
+        <footer class="pie">
+          <span id="estadisticas"></span>
+          <button id="btn-historial" class="enlace">Borrar historial</button>
+        </footer>
+      </main>
     </div>
-
-    <main class="contenido">
-      <p id="aviso" class="aviso" role="status" hidden></p>
-
-      <section id="ejercicios" class="ejercicios">
-        <div class="bienvenida">
-          <h2>¿Listo para competir?</h2>
-          <p>
-            Al presionar <strong>Comenzar</strong> te tocan tres ejercicios, uno de cada nivel, y empieza una
-            cuenta regresiva de 25 minutos. De vez en cuando la suerte se pone exigente y la ronda trae
-            dos de nivel 3.
-          </p>
-          <ul class="niveles">
-            <li class="nivel-1"><strong>Nivel 1, directo.</strong> Recorridos, búsqueda lineal y cadenas.</li>
-            <li class="nivel-2"><strong>Nivel 2, técnica clásica.</strong> Búsqueda binaria, dos punteros, ordenamiento.</li>
-            <li class="nivel-3"><strong>Nivel 3, diseño.</strong> Programación dinámica, grafos, backtracking.</li>
-          </ul>
-          <p>Lee con calma, planea antes de programar y cuida el reloj.</p>
-        </div>
-      </section>
-    </main>
-
-    <footer class="pie">
-      <div class="contenido pie-interior">
-        <span id="estadisticas"></span>
-        <button id="btn-historial" class="enlace">Borrar historial</button>
-      </div>
-    </footer>
 
     <script type="module" src="/src/main.js"></script>
   </body>

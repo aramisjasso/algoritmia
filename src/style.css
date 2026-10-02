@@ -1,51 +1,50 @@
-/* Paleta inspirada en el sitio de CICESE: azul marino institucional,
-   verde azulado de acento, banda gris de navegación y Noto Sans. */
+/* El panel del reloj es oscuro en ambos modos (tipo marcador);
+   el área de lectura cambia entre claro y oscuro con data-theme (ver src/tema.js). */
 :root {
   --fondo: #ffffff;
   --superficie: #ffffff;
-  --banda: #e4e7ea;
-  --borde: #d5dade;
-  --texto: #404041;
-  --texto-suave: #6b6f73;
-  --marino: #2a5578;
-  --marino-oscuro: #1c3d58;
-  --acento: #00ba8c;
-  --sobre-marino: #ffffff;
-  --codigo: #f3f5f7;
-  --nivel-1: #00a07a;
-  --nivel-2: #c77d00;
-  --nivel-3: #b0273f;
-  --alerta: #c62828;
-  --alerta-fondo: #fdecea;
-  --aviso-fondo: #e6f8f3;
+  --borde: #e2e5ea;
+  --texto: #1a1d23;
+  --texto-suave: #5d6470;
+  --codigo: #f4f6f8;
+  --sombra: 0 1px 2px rgb(16 24 40 / 0.05), 0 4px 16px rgb(16 24 40 / 0.06);
+  --enlace: #3f6b0a;
+  --nivel-1: #15803d;
+  --nivel-2: #b45309;
+  --nivel-3: #be123c;
+
+  --panel-fondo: #111318;
+  --panel-texto: #f3f4f6;
+  --panel-suave: #8e95a1;
+  --panel-borde: #2b2f37;
+  --acento: #c6f45c;
+  --sobre-acento: #111318;
+  --alerta: #ff5f5f;
+
+  --titulos: 'Space Grotesk', 'Segoe UI', system-ui, sans-serif;
   --mono: 'Cascadia Code', Consolas, 'SF Mono', Menlo, monospace;
 
-  color-scheme: light dark;
-  font-family: 'Noto Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  line-height: 1.6;
+  color-scheme: light;
+  font-family: 'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif;
+  line-height: 1.65;
   color: var(--texto);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --fondo: #0f1b26;
-    --superficie: #152433;
-    --banda: #1b2e40;
-    --borde: #2a3f53;
-    --texto: #e3e8ec;
-    --texto-suave: #9aa8b4;
-    --marino: #6fa3d0;
-    --marino-oscuro: #0a141d;
-    --acento: #2fd6a8;
-    --sobre-marino: #0f1b26;
-    --codigo: #0d1720;
-    --nivel-1: #2fd6a8;
-    --nivel-2: #f0b13c;
-    --nivel-3: #ff7088;
-    --alerta: #ff6b6b;
-    --alerta-fondo: #3a1b1f;
-    --aviso-fondo: #12342e;
-  }
+:root[data-theme='dark'] {
+  --fondo: #17191e;
+  --superficie: #1e2127;
+  --borde: #2e323a;
+  --texto: #e8eaee;
+  --texto-suave: #a0a7b2;
+  --codigo: #121418;
+  --sombra: none;
+  --enlace: #c6f45c;
+  --nivel-1: #4ade80;
+  --nivel-2: #fbbf24;
+  --nivel-3: #fb7185;
+  --panel-fondo: #0c0d10;
+
+  color-scheme: dark;
 }
 
 * {
@@ -54,127 +53,124 @@
 
 body {
   margin: 0;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
   background: var(--fondo);
 }
 
-.contenido {
-  width: 100%;
-  max-width: 960px;
-  margin: 0 auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
-
-/* ---------- Encabezado ---------- */
-
-.encabezado {
-  border-top: 6px solid var(--marino);
-  padding: 1.25rem 0;
-}
-
-.encabezado-interior {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.emblema {
-  flex: none;
-  width: 3rem;
-  height: 3rem;
-  padding: 0.4rem;
-  color: var(--sobre-marino);
-  background: var(--marino);
-  border-radius: 4px;
-}
-
-.encabezado h1 {
-  margin: 0;
-  font-size: 1.5rem;
-  font-weight: 700;
+h1,
+h2,
+h3 {
+  font-family: var(--titulos);
   line-height: 1.2;
-  color: var(--marino);
 }
 
-.encabezado p {
-  margin: 0.15rem 0 0;
-  font-weight: 300;
-  color: var(--texto-suave);
+/* ---------- Estructura: panel lateral + contenido ---------- */
+
+.app {
+  display: grid;
+  grid-template-columns: 300px minmax(0, 1fr);
+  min-height: 100vh;
 }
 
-/* ---------- Banda gris con reloj y controles (fija al hacer scroll) ---------- */
-
-.banda {
+.panel {
   position: sticky;
   top: 0;
-  z-index: 10;
-  background: var(--banda);
-  border-bottom: 3px solid var(--acento);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  padding: 2rem 1.5rem;
+  background: var(--panel-fondo);
+  color: var(--panel-texto);
 }
 
-.banda-interior {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 0.5rem 1.5rem;
-  padding-top: 0.6rem;
-  padding-bottom: 0.6rem;
+.marca h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  letter-spacing: -0.01em;
+}
+
+.marca h1::after {
+  content: '';
+  display: inline-block;
+  width: 0.45em;
+  height: 0.45em;
+  margin-left: 0.2em;
+  background: var(--acento);
+}
+
+.marca p {
+  margin: 0.15rem 0 0;
+  color: var(--panel-suave);
+  font-size: 0.9rem;
 }
 
 .reloj {
-  font-size: clamp(2.25rem, 7vw, 3.25rem);
+  font-family: var(--titulos);
+  font-size: 4.5rem;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
   line-height: 1;
   white-space: nowrap;
-  color: var(--marino);
-  padding: 0.2rem 0.6rem;
-  border-left: 5px solid var(--marino);
-  transition: color 0.3s, border-color 0.3s, background 0.3s;
+  transition: color 0.3s;
 }
 
 .reloj.alerta,
 .reloj.fin {
   color: var(--alerta);
-  border-color: var(--alerta);
-}
-
-.reloj.alerta {
-  background: var(--alerta-fondo);
 }
 
 .reloj.pausado {
-  opacity: 0.5;
+  opacity: 0.45;
+}
+
+.progreso {
+  height: 6px;
+  margin: 1rem 0 1.5rem;
+  background: var(--panel-borde);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progreso span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--acento);
+  transition: width 0.25s linear, background 0.3s;
+}
+
+.reloj.alerta + .progreso span {
+  background: var(--alerta);
 }
 
 .controles {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.5rem;
+  flex-direction: column;
+  gap: 0.6rem;
 }
 
 .boton {
-  font: inherit;
-  font-size: 0.9rem;
+  font-family: var(--titulos);
+  font-size: 1rem;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-  padding: 0.55rem 1rem;
-  border: 2px solid var(--marino);
-  border-radius: 4px;
+  padding: 0.7rem 1rem;
+  border: 1px solid var(--panel-borde);
+  border-radius: 8px;
   background: transparent;
-  color: var(--marino);
+  color: var(--panel-texto);
   cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
 }
 
 .boton:hover:not(:disabled) {
-  background: var(--marino);
-  color: var(--sobre-marino);
+  background: var(--panel-borde);
+}
+
+.boton:focus-visible,
+.enlace:focus-visible {
+  outline: 2px solid var(--acento);
+  outline-offset: 2px;
 }
 
 .boton:disabled {
@@ -183,29 +179,30 @@ body {
 }
 
 .boton.principal {
-  background: var(--marino);
-  color: var(--sobre-marino);
+  background: var(--acento);
+  border-color: var(--acento);
+  color: var(--sobre-acento);
 }
 
 .boton.principal:hover {
-  background: var(--marino-oscuro);
-  border-color: var(--marino-oscuro);
-  color: #ffffff;
+  background: #d8fb86;
 }
 
 .boton.icono {
   display: grid;
   place-items: center;
-  padding: 0.4rem;
+  padding: 0.5rem;
 }
 
 .boton.icono svg {
-  width: 1.4rem;
-  height: 1.4rem;
+  width: 1.25rem;
+  height: 1.25rem;
 }
 
 .boton .tachado,
-.boton.silenciada .ondas {
+.boton.silenciada .ondas,
+[data-theme='dark'] .boton .luna,
+:root:not([data-theme='dark']) .boton .sol {
   display: none;
 }
 
@@ -213,30 +210,40 @@ body {
   display: inline;
 }
 
+.ajustes {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
 .musica {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.5rem;
 }
 
 .musica input {
-  width: 6rem;
-  accent-color: var(--marino);
+  width: 7rem;
+  accent-color: var(--acento);
 }
 
 /* ---------- Contenido ---------- */
 
-main {
-  flex: 1;
-  padding-top: 1.75rem;
-  padding-bottom: 2.5rem;
+.principal-contenido {
+  width: 100%;
+  max-width: 880px;
+  padding: 2.5rem 3rem 1.5rem;
+  color: var(--texto);
 }
 
 .aviso {
-  margin: 0 0 1.5rem;
-  padding: 0.9rem 1rem;
-  border-left: 6px solid var(--acento);
-  background: var(--aviso-fondo);
+  margin: 0 0 1.75rem;
+  padding: 1rem 1.25rem;
+  border-radius: 10px;
+  border: 1px solid color-mix(in srgb, var(--nivel-3) 40%, transparent);
+  background: color-mix(in srgb, var(--nivel-3) 10%, var(--superficie));
   font-weight: 600;
   animation: sacudir 0.5s ease-in-out;
 }
@@ -252,39 +259,59 @@ main {
   gap: 1.75rem;
 }
 
-.bienvenida,
-.tarjeta {
-  min-width: 0;
-  background: var(--superficie);
-  border: 1px solid var(--borde);
-  border-radius: 4px;
-  padding: 1.25rem 1.5rem 1.5rem;
-}
-
-.bienvenida h2 {
-  margin-top: 0;
-  color: var(--marino);
-}
-
-.niveles {
-  list-style: none;
-  margin: 1rem 0;
-  padding: 0;
-  display: grid;
-  gap: 0.5rem;
-}
-
-.niveles li {
-  padding-left: 0.75rem;
-  border-left: 4px solid var(--nivel);
-}
-
 .nivel-1 { --nivel: var(--nivel-1); }
 .nivel-2 { --nivel: var(--nivel-2); }
 .nivel-3 { --nivel: var(--nivel-3); }
 
+.bienvenida h2 {
+  margin: 0.5rem 0 1rem;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  letter-spacing: -0.02em;
+}
+
+.bienvenida p {
+  max-width: 62ch;
+  color: var(--texto-suave);
+  font-size: 1.05rem;
+}
+
+.niveles {
+  list-style: none;
+  margin: 2rem 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 1rem;
+}
+
+.niveles li {
+  display: grid;
+  gap: 0.25rem;
+  padding: 1rem 1.1rem;
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-top: 4px solid var(--nivel);
+  border-radius: 10px;
+  box-shadow: var(--sombra);
+}
+
+.niveles strong {
+  font-family: var(--titulos);
+  color: var(--nivel);
+}
+
+.niveles span {
+  font-size: 0.92rem;
+  color: var(--texto-suave);
+}
+
 .tarjeta {
-  border-top: 5px solid var(--nivel);
+  min-width: 0;
+  padding: 1.75rem;
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: 14px;
+  box-shadow: var(--sombra);
 }
 
 .tarjeta-encabezado {
@@ -296,62 +323,62 @@ main {
 }
 
 .insignia {
-  font-size: 0.8rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
+  font-size: 0.85rem;
+  font-weight: 600;
   padding: 0.2rem 0.6rem;
-  border-radius: 2px;
-  color: #ffffff;
-  background: var(--nivel);
-}
-
-@media (prefers-color-scheme: dark) {
-  .insignia {
-    color: var(--fondo);
-  }
+  border-radius: 6px;
+  color: var(--nivel);
+  background: color-mix(in srgb, var(--nivel) 13%, transparent);
 }
 
 .numero {
-  font-size: 0.85rem;
+  font-size: 0.875rem;
   color: var(--texto-suave);
 }
 
 .tarjeta h2 {
-  margin: 0.75rem 0 0.25rem;
-  font-size: 1.45rem;
-  line-height: 1.3;
-  color: var(--marino);
+  margin: 0.9rem 0 0.5rem;
+  font-size: 1.6rem;
+  letter-spacing: -0.015em;
 }
 
 .tarjeta h4 {
-  margin: 1rem 0 0.4rem;
-  font-size: 0.95rem;
-  color: var(--marino);
+  margin: 1.1rem 0 0.5rem;
+  font-family: var(--titulos);
+  font-size: 1rem;
+}
+
+.enunciado a,
+.explicacion a {
+  color: var(--enlace);
 }
 
 .enunciado blockquote {
   margin: 1rem 0;
-  padding: 0.25rem 1rem;
-  border-left: 4px solid var(--acento);
+  padding: 0.6rem 1rem;
+  border-left: 3px solid var(--borde);
   color: var(--texto-suave);
+}
+
+.enunciado blockquote p {
+  margin: 0;
 }
 
 /* Bloques de código: scroll horizontal dentro de la tarjeta, nunca en la página. */
 .tarjeta pre {
   margin: 0;
-  padding: 0.75rem 1rem;
+  padding: 0.8rem 1rem;
   overflow-x: auto;
   background: var(--codigo);
   border: 1px solid var(--borde);
-  border-radius: 4px;
+  border-radius: 8px;
   font-family: var(--mono);
   font-size: 0.9rem;
   line-height: 1.5;
 }
 
 .enunciado pre {
-  margin: 0.75rem 0;
+  margin: 1rem 0;
 }
 
 .tarjeta pre code.hljs {
@@ -361,10 +388,11 @@ main {
 
 .tarjeta :not(pre) > code {
   font-family: var(--mono);
-  font-size: 0.9em;
+  font-size: 0.88em;
   padding: 0.1em 0.35em;
-  border-radius: 3px;
+  border-radius: 4px;
   background: var(--codigo);
+  border: 1px solid var(--borde);
 }
 
 .katex-display {
@@ -373,7 +401,7 @@ main {
 }
 
 .ejemplos {
-  margin-top: 1.25rem;
+  margin-top: 1.5rem;
   padding-top: 0.25rem;
   border-top: 1px solid var(--borde);
 }
@@ -386,34 +414,28 @@ main {
 
 .etiqueta {
   display: block;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   font-weight: 600;
   color: var(--texto-suave);
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.3rem;
 }
 
 .explicacion {
-  margin: 0.5rem 0 0;
-  font-size: 0.92rem;
+  margin: 0.6rem 0 0;
+  font-size: 0.93rem;
   color: var(--texto-suave);
 }
 
-/* ---------- Pie ---------- */
-
 .pie {
-  background: var(--marino-oscuro);
-  color: #dfe7ee;
-  font-size: 0.875rem;
-  font-weight: 300;
-}
-
-.pie-interior {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 0.5rem 1.5rem;
+  margin-top: 3rem;
   padding-top: 1.25rem;
-  padding-bottom: 1.25rem;
+  border-top: 1px solid var(--borde);
+  font-size: 0.875rem;
+  color: var(--texto-suave);
 }
 
 .enlace {
@@ -427,49 +449,94 @@ main {
 }
 
 .enlace:hover {
-  color: var(--acento);
+  color: var(--texto);
 }
 
-/* ---------- Celular ---------- */
+/* ---------- Tableta y celular: el panel se vuelve una barra fija arriba ---------- */
 
-@media (max-width: 640px) {
-  .encabezado {
-    padding: 0.9rem 0;
+@media (max-width: 900px) {
+  .app {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-rows: auto auto 1fr;
   }
 
-  .encabezado h1 {
+  /* El panel deja de ser una caja: sus tres partes pasan a ser celdas de la cuadrícula. */
+  .panel {
+    display: contents;
+  }
+
+  .marca,
+  .tablero,
+  .ajustes {
+    background: var(--panel-fondo);
+    color: var(--panel-texto);
+  }
+
+  .marca {
+    grid-area: 1 / 1;
+    padding: 0.9rem 1rem 0.25rem;
+  }
+
+  .marca h1 {
     font-size: 1.2rem;
   }
 
-  .encabezado p {
-    font-size: 0.875rem;
+  .marca p {
+    display: none;
   }
 
-  .emblema {
-    width: 2.5rem;
-    height: 2.5rem;
-  }
-
-  .banda-interior {
-    justify-content: center;
-  }
-
-  .controles {
-    justify-content: center;
-  }
-
-  .boton {
-    padding: 0.45rem 0.75rem;
-    font-size: 0.8rem;
+  .ajustes {
+    grid-area: 1 / 2;
+    margin-top: 0;
+    padding: 0.7rem 1rem 0.25rem 0;
   }
 
   .musica input {
-    width: 4.5rem;
+    width: 5rem;
   }
 
-  .bienvenida,
+  .tablero {
+    grid-column: 1 / -1;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 0 1rem;
+    padding: 0.5rem 1rem 0;
+  }
+
+  .reloj {
+    font-size: 2.5rem;
+  }
+
+  .controles {
+    grid-area: 1 / 2;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+
+  .boton {
+    padding: 0.5rem 0.85rem;
+    font-size: 0.9rem;
+  }
+
+  .progreso {
+    grid-row: 2;
+    grid-column: 1 / -1;
+    margin: 0.6rem -1rem 0;
+    border-radius: 0;
+    height: 4px;
+  }
+
+  .principal-contenido {
+    grid-column: 1 / -1;
+    padding: 1.5rem 1rem 1rem;
+  }
+
   .tarjeta {
-    padding: 1rem;
+    padding: 1.1rem;
   }
 
   .entrada-salida {

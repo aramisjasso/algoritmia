@@ -10,25 +10,12 @@ import java from 'highlight.js/lib/languages/java'
 import javascript from 'highlight.js/lib/languages/javascript'
 import renderMathInElement from 'katex/contrib/auto-render'
 import 'katex/dist/katex.min.css'
-import temaClaro from 'highlight.js/styles/github.css?inline'
-import temaOscuro from 'highlight.js/styles/github-dark.css?inline'
 
 hljs.registerLanguage('python', python)
 hljs.registerLanguage('c', c)
 hljs.registerLanguage('cpp', cpp)
 hljs.registerLanguage('java', java)
 hljs.registerLanguage('javascript', javascript)
-
-// El tema de highlight.js sigue al modo claro/oscuro del sistema.
-for (const [css, media] of [
-  [temaClaro, '(prefers-color-scheme: light)'],
-  [temaOscuro, '(prefers-color-scheme: dark)'],
-]) {
-  const estilo = document.createElement('style')
-  estilo.media = media
-  estilo.textContent = css
-  document.head.append(estilo)
-}
 
 const escaparHtml = (texto) =>
   texto.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')

@@ -3,6 +3,7 @@ import banco from './data/ejercicios.json'
 import { sortear, leerHistorial, borrarHistorial } from './sorteo.js'
 import { crearTemporizador, formatear } from './temporizador.js'
 import { crearTarjeta } from './render.js'
+import { temaActual, alternarTema } from './tema.js'
 import {
   reproducirMusica,
   pausarMusica,
@@ -25,6 +26,7 @@ const FRASES_RONDA_PESADA = [
 
 const $ = (selector) => document.querySelector(selector)
 const reloj = $('#reloj')
+const barraProgreso = $('#barra-progreso')
 const btnComenzar = $('#btn-comenzar')
 const btnPausa = $('#btn-pausa')
 const btnTerminar = $('#btn-terminar')
@@ -39,6 +41,7 @@ const temporizador = crearTemporizador({
   duracionMs: DURACION_MS,
   alCambiar(restanteMs) {
     reloj.textContent = formatear(restanteMs)
+    barraProgreso.style.width = `${(restanteMs / DURACION_MS) * 100}%`
     reloj.classList.toggle('alerta', restanteMs <= ALERTA_MS)
     document.title = `${formatear(restanteMs)} · Algoritmia`
   },
@@ -132,4 +135,15 @@ $('#btn-historial').addEventListener('click', () => {
   }
 })
 
+const btnTema = $('#btn-tema')
+function etiquetarBotonTema() {
+  btnTema.title = temaActual() === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'
+  btnTema.setAttribute('aria-label', btnTema.title)
+}
+btnTema.addEventListener('click', () => {
+  alternarTema()
+  etiquetarBotonTema()
+})
+
+etiquetarBotonTema()
 actualizarEstadisticas()
