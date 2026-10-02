@@ -50,7 +50,7 @@ const temporizador = crearTemporizador({
     document.title = `${formatear(restanteMs)} · Algoritmia`
   },
   alTerminar() {
-    terminarRonda('¡Tiempo!')
+    terminarRonda('¡Tiempo!', { agotado: true })
     sonarFin()
   },
 })
@@ -82,7 +82,7 @@ function comenzar() {
   enRonda = true
   pausado = false
   btnPausa.textContent = 'Pausar'
-  reloj.classList.remove('fin', 'pausado')
+  reloj.classList.remove('fin', 'agotado', 'pausado')
   mostrarBotones()
   temporizador.iniciar()
   actualizarEstadisticas()
@@ -101,12 +101,13 @@ function alternarPausa() {
   reloj.classList.toggle('pausado', pausado)
 }
 
-function terminarRonda(mensaje) {
+function terminarRonda(mensaje, { agotado = false } = {}) {
   temporizador.detener()
   detenerMusica()
   reloj.textContent = mensaje
   reloj.classList.remove('alerta', 'pausado')
   reloj.classList.add('fin')
+  reloj.classList.toggle('agotado', agotado)
   document.title = `${mensaje} · Algoritmia`
   btnComenzar.textContent = 'Nueva ronda'
   enRonda = false
@@ -120,7 +121,7 @@ function mostrarInicio() {
   contenedor.replaceChildren(bienvenida)
   aviso.hidden = true
   reloj.textContent = formatear(DURACION_MS)
-  reloj.classList.remove('alerta', 'pausado', 'fin')
+  reloj.classList.remove('alerta', 'pausado', 'fin', 'agotado')
   barraProgreso.style.width = '100%'
   document.title = tituloInicial
   btnComenzar.textContent = 'Comenzar'

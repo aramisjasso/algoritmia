@@ -19,7 +19,7 @@
   --panel-borde: #2b2f37;
   --acento: #c6f45c;
   --sobre-acento: #111318;
-  --alerta: #ff5f5f;
+  --alerta: #ff9f45;
 
   --titulos: 'Space Grotesk', 'Segoe UI', system-ui, sans-serif;
   --mono: 'Cascadia Code', Consolas, 'SF Mono', Menlo, monospace;
@@ -129,9 +129,16 @@ h3 {
   transition: color 0.3s;
 }
 
+/* Últimos 5 minutos y tiempo agotado: naranja ámbar, que combina con el lima. */
 .reloj.alerta,
-.reloj.fin {
+.reloj.agotado {
   color: var(--alerta);
+}
+
+/* Al terminar, el reloj muestra una palabra: se reduce para que quepa en el panel. */
+.reloj.fin {
+  font-size: 2.75rem;
+  letter-spacing: -0.01em;
 }
 
 .reloj.pausado {
