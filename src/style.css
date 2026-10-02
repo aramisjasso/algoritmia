@@ -51,6 +51,11 @@
   box-sizing: border-box;
 }
 
+/* Que ninguna regla de display (por ejemplo .boton) le gane al atributo hidden. */
+[hidden] {
+  display: none !important;
+}
+
 body {
   margin: 0;
   background: var(--fondo);
