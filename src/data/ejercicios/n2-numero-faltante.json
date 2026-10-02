@@ -1,0 +1,21 @@
+{
+  "id": "n2-numero-faltante",
+  "nivel": 2,
+  "titulo": "El número faltante",
+  "enunciado": "Se tiene un arreglo con $N - 1$ enteros distintos: son los números del $1$ al $N$ en desorden, pero **falta exactamente uno**. Encuéntralo.\n\nResuélvelo en $O(N)$ de tiempo y $O(1)$ de memoria extra: sin ordenar el arreglo y sin usar un arreglo auxiliar de marcas.\n\n**Entrada:** en la primera línea, $N$; en la segunda, los $N - 1$ números.\n\n**Restricciones:** $2 \\le N \\le 10^6$.\n\n> Cuidado: con $N = 10^6$, la suma $1 + 2 + \\dots + N$ no cabe en un entero de 32 bits. ¿Hay una forma de resolverlo sin sumas grandes?",
+  "ejemplos": [
+    {
+      "entrada": "8\n3 7 1 2 8 4 5",
+      "salida": "6"
+    },
+    {
+      "entrada": "5\n1 2 3 4",
+      "salida": "5",
+      "explicacion": "Puede faltar el último número."
+    },
+    {
+      "entrada": "2\n2",
+      "salida": "1"
+    }
+  ]
+}

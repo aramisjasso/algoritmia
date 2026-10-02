@@ -1,0 +1,21 @@
+{
+  "id": "n2-triangulo-pascal",
+  "nivel": 2,
+  "titulo": "Triángulo de Pascal",
+  "enunciado": "En el triángulo de Pascal, cada fila empieza y termina con $1$, y **cada número interior es la suma de los dos que tiene arriba**. Filas y posiciones se numeran desde $0$:\n\n```text\nfila 0:         1\nfila 1:        1 1\nfila 2:       1 2 1\nfila 3:      1 3 3 1\nfila 4:     1 4 6 4 1\n```\n\nDadas una fila $f$ y una posición $p$ ($0 \\le p \\le f$), devuelve el número que está en esa posición. Resuélvelo con **recursión**, sin usar la fórmula de combinaciones ni factoriales.\n\n```python\ndef pascal(fila: int, posicion: int) -> int:\n    ...\n```\n\n**Entrada:** $f$ y $p$ en una línea.\n\n**Restricciones:** $0 \\le p \\le f \\le 20$.",
+  "ejemplos": [
+    {
+      "entrada": "4 2",
+      "salida": "6",
+      "explicacion": "La fila 4 es 1 4 6 4 1; en la posición 2 está el 6."
+    },
+    {
+      "entrada": "5 0",
+      "salida": "1"
+    },
+    {
+      "entrada": "6 3",
+      "salida": "20"
+    }
+  ]
+}

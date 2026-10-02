@@ -10,6 +10,11 @@
       "explicacion": "El mayor es 9 (aparece dos veces); el siguiente valor distinto es 7."
     },
     {
+      "entrada": "4\n5 1 5 3",
+      "salida": "3",
+      "explicacion": "Las repeticiones del máximo no cuentan."
+    },
+    {
       "entrada": "3\n-4 -4 -4",
       "salida": "NO EXISTE"
     }

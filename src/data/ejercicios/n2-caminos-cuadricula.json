@@ -1,0 +1,21 @@
+{
+  "id": "n2-caminos-cuadricula",
+  "nivel": 2,
+  "titulo": "Caminos en una cuadrícula",
+  "enunciado": "Tienes una cuadrícula de $F$ filas y $C$ columnas. Empiezas en la esquina superior izquierda y quieres llegar a la esquina inferior derecha moviéndote **solo hacia la derecha o hacia abajo**, una celda a la vez. ¿Cuántos caminos distintos hay?\n\nResuélvelo con **recursión**: desde cualquier celda solo hay dos decisiones posibles. Piensa primero en cuál es el caso base.\n\n```python\ndef caminos(filas: int, columnas: int) -> int:\n    ...\n```\n\n**Entrada:** $F$ y $C$ en una línea.\n\n**Restricciones:** $1 \\le F, C \\le 12$.\n\nReto extra: ¿por qué la versión recursiva directa se vuelve muy lenta con $F = C = 20$? Agrégale memoización para que tarde $O(F \\cdot C)$.",
+  "ejemplos": [
+    {
+      "entrada": "2 2",
+      "salida": "2",
+      "explicacion": "Derecha y luego abajo, o abajo y luego derecha."
+    },
+    {
+      "entrada": "3 3",
+      "salida": "6"
+    },
+    {
+      "entrada": "3 7",
+      "salida": "28"
+    }
+  ]
+}

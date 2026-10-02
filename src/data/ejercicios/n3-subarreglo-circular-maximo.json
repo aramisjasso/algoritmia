@@ -1,0 +1,23 @@
+{
+  "id": "n3-subarreglo-circular-maximo",
+  "nivel": 3,
+  "titulo": "Subarreglo circular de suma máxima",
+  "enunciado": "Tienes un arreglo **circular** de $n$ enteros: después del último elemento viene otra vez el primero. Encuentra la suma máxima de un segmento **no vacío** y contiguo, que puede \"envolver\" el final.\n\nEs decir, puedes escoger un segmento normal $a[i..j]$ con $i \\le j$, o uno que cruce el final: $a[i..n-1] + a[0..j]$. Cada elemento se usa a lo más una vez.\n\nComplejidad esperada: $O(n)$. Una solución que pruebe todos los inicios y finales cuesta $O(n^2)$.\n\n**Entrada:** en la primera línea, $n$; en la segunda, los $n$ enteros.\n\n**Restricciones:** $1 \\le n \\le 10^5$, $-10^4 \\le a_i \\le 10^4$.\n\n> Pista: si el mejor segmento envuelve el final, lo que queda **fuera** de él es un segmento contiguo del medio. Ten cuidado cuando todos los números son negativos.",
+  "ejemplos": [
+    {
+      "entrada": "4\n1 -2 3 -2",
+      "salida": "3",
+      "explicacion": "El mejor segmento es solo $[3]$; no conviene envolver."
+    },
+    {
+      "entrada": "3\n5 -3 5",
+      "salida": "10",
+      "explicacion": "Envolviendo: el último $5$ seguido del primer $5$."
+    },
+    {
+      "entrada": "3\n-3 -2 -3",
+      "salida": "-2",
+      "explicacion": "El segmento no puede ser vacío, así que se toma el mayor elemento."
+    }
+  ]
+}
