@@ -1,0 +1,18 @@
+{
+  "id": "n1-numero-mas-grande-al-menos-el-doble-que-los-demas",
+  "nivel": 1,
+  "titulo": "Número más grande al menos el doble que los demás",
+  "enunciado": "Se te da un arreglo de enteros 'nums', donde el entero más grande es único.\n\nDetermina si el elemento más grande del arreglo es al menos el doble que cualquier otro número en el arreglo. Si lo es, regresa el índice del elemento más grande. Si no, regresa -1.",
+  "ejemplos": [
+    {
+      "entrada": "nums = [3,6,1,0]",
+      "salida": "1",
+      "explicacion": "6 es el entero más grande. Para cualquier otro número del arreglo, 6 es al menos el doble de grande. El índice del valor 6 es 1, así que retornamos 1."
+    },
+    {
+      "entrada": "nums = [1,2,3,4]",
+      "salida": "-1",
+      "explicacion": "4 es menor al doble del valor de 3, entonces retornamos 1."
+    }
+  ]
+}
