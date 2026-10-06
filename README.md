@@ -9,7 +9,8 @@ Cada navegador recuerda qué ejercicios ya le tocaron (en `localStorage`) y pref
 ```bash
 npm install
 npm run dev      # servidor local
-npm run build    # compila a dist/
+npm run validar  # revisa los JSON de ejercicios
+npm run build    # valida y compila a dist/
 ```
 
 La música de fondo es opcional: coloca un archivo en `public/audio/musica.mp3`. Si no existe, la página funciona igual, sin música.
@@ -72,7 +73,15 @@ Ejemplo completo de un archivo (`src/data/ejercicios/n1-contar-vocales.json`):
 }
 ````
 
-Si un archivo queda con JSON mal formado (una coma de más, comillas sin escapar), la compilación falla y la página no se actualiza; lo verás en la pestaña **Actions** del repo. Un archivo con JSON válido pero sin los campos obligatorios se ignora con un aviso en la consola.
+Si un archivo queda con JSON mal formado (una coma de más, comillas sin escapar), la compilación falla y la página no se actualiza; lo verás en la pestaña **Actions** del repo. Ver la sección siguiente para revisarlo antes.
+
+## Ver y editar ejercicios
+
+- **Ver el banco**: `/ver.html` lista todos los ejercicios por nivel, y `/ver.html?id=<id>` muestra uno tal como sale en el sorteo.
+- **Editar en local con vista previa**: corre `npm run dev`, abre `http://localhost:5173/algoritmia/ver.html?id=<id>` y edita el `.json` en tu editor. Al guardar, la página se recarga sola. Si el JSON queda mal escrito, la página dice qué archivo es y en qué línea está el error.
+- **Editar desde el navegador**: en el formulario, elige el ejercicio en el selector **Ejercicio**, o entra a `/agregar.html?editar=<id>`, o usa **Editar en el formulario** en la vista previa. Al terminar, **Editar en GitHub** copia el JSON y abre el editor del archivo: selecciona todo, pega y confirma. Sin cuenta, copia o descarga el JSON y mándalo. El id no se puede cambiar al editar, porque es el nombre del archivo.
+
+`npm run build` (y por lo tanto el despliegue) se detiene si algún ejercicio tiene JSON mal escrito, campos faltantes, un id repetido o un id distinto al nombre de su archivo. Para revisarlo sin compilar, usa `npm run validar`.
 
 ## Despliegue
 

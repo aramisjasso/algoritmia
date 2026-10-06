@@ -39,6 +39,7 @@ marked.use({
 
 const NOMBRES_NIVEL = { 1: 'Directo', 2: 'Técnica clásica', 3: 'Diseño de algoritmos' }
 
+// `numero` es opcional: solo el sorteo lo muestra.
 export function crearTarjeta(ejercicio, numero) {
   const tarjeta = document.createElement('article')
   tarjeta.className = `tarjeta nivel-${ejercicio.nivel}`
@@ -66,7 +67,7 @@ export function crearTarjeta(ejercicio, numero) {
   tarjeta.innerHTML = `
     <header class="tarjeta-encabezado">
       <span class="insignia">Nivel ${ejercicio.nivel} · ${NOMBRES_NIVEL[ejercicio.nivel] ?? ''}</span>
-      <span class="numero">Ejercicio ${numero}</span>
+      ${numero ? `<span class="numero">Ejercicio ${numero}</span>` : ''}
     </header>
     <h2>${escaparHtml(ejercicio.titulo)}</h2>
     <div class="enunciado">${marked.parse(ejercicio.enunciado)}</div>

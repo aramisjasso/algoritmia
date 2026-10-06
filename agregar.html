@@ -43,12 +43,20 @@
       </aside>
 
       <main class="principal-contenido ancho">
-        <h2 class="titulo-pagina">Agregar un ejercicio</h2>
+        <h2 id="titulo-pagina" class="titulo-pagina">Agregar un ejercicio</h2>
         <p class="intro">
           Llena el formulario y revisa la vista previa. Si tienes cuenta de GitHub, <strong>Enviar a GitHub</strong>
           abre el archivo ya escrito: solo confirma el commit (o el pull request, si no eres colaborador). Si no
           tienes cuenta, copia o descarga el JSON y mándaselo a quien administra el banco.
         </p>
+
+        <label class="campo selector-ejercicio">
+          <span>Ejercicio</span>
+          <select id="selector-ejercicio">
+            <option value="">Nuevo ejercicio</option>
+          </select>
+          <small>Elige uno existente para editarlo con vista previa.</small>
+        </label>
 
         <div class="editor">
           <form id="formulario" class="formulario" novalidate>
@@ -69,7 +77,7 @@
             <label class="campo">
               <span>Identificador</span>
               <input id="id" type="text" maxlength="60" spellcheck="false" />
-              <small>Se genera solo a partir del nivel y el título; será el nombre del archivo. Solo minúsculas, números y guiones.</small>
+              <small id="ayuda-id">Se genera solo a partir del nivel y el título; será el nombre del archivo. Solo minúsculas, números y guiones.</small>
             </label>
 
             <label class="campo">

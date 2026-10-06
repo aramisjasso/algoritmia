@@ -1,5 +1,6 @@
-// Formulario para agregar ejercicios: vista previa en vivo y dos salidas,
-// abrir GitHub con el archivo ya escrito, o copiar/descargar el JSON.
+// Formulario para agregar o editar ejercicios, con vista previa en vivo.
+// Salidas: abrir GitHub (archivo nuevo prellenado, o el editor del archivo existente)
+// o copiar/descargar el JSON para quien no tiene cuenta.
 
 import './style.css'
 import { banco } from './banco.js'
@@ -15,11 +16,15 @@ const LARGO_MAXIMO_URL = 8000
 
 const CLAVE_BORRADOR = 'algoritmia:borrador'
 const idsExistentes = new Set(banco.map((e) => e.id))
+const NOMBRES_NIVEL = { 1: 'Nivel 1', 2: 'Nivel 2', 3: 'Nivel 3' }
 
 const $ = (selector) => document.querySelector(selector)
 const formulario = $('#formulario')
+const selectorEjercicio = $('#selector-ejercicio')
+const tituloPagina = $('#titulo-pagina')
 const campoTitulo = $('#titulo')
 const campoId = $('#id')
+const ayudaId = $('#ayuda-id')
 const campoEnunciado = $('#enunciado')
 const listaEjemplos = $('#lista-ejemplos')
 const plantillaEjemplo = $('#plantilla-ejemplo')
@@ -31,10 +36,16 @@ const btnDescargar = $('#btn-descargar')
 const notaEnvio = $('#nota-envio')
 const salidaJson = $('#json')
 
+const AYUDA_ID_NUEVO = ayudaId.textContent
+const AYUDA_ID_EDICION = 'Es el nombre del archivo y no se puede cambiar al editar. Para otro id, crea un ejercicio nuevo.'
+
 // El id se genera del título hasta que la persona lo edita a mano.
 let idManual = false
+// Id del ejercicio existente que se está editando (null = ejercicio nuevo).
+let editando = null
 
 const nivelElegido = () => Number(formulario.elements.nivel.value)
+const aJson = (ejercicio) => JSON.stringify(ejercicio, null, 2) + '\n'
 
 function generarId(nivel, titulo) {
   const slug = titulo
@@ -103,7 +114,7 @@ function validar(ejercicio) {
   if (ejercicio.titulo && !ejercicio.id) errores.push('Falta el identificador.')
   else if (ejercicio.id && !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(ejercicio.id))
     errores.push('El identificador solo puede tener minúsculas, números y guiones (sin espacios ni acentos).')
-  else if (idsExistentes.has(ejercicio.id))
+  else if (idsExistentes.has(ejercicio.id) && ejercicio.id !== editando)
     errores.push(`Ya existe un ejercicio con el identificador "${ejercicio.id}"; cámbialo.`)
   if (!ejercicio.enunciado) errores.push('Falta el enunciado.')
   ;(ejercicio.ejemplos ?? []).forEach((ej, i) => {
@@ -114,7 +125,7 @@ function validar(ejercicio) {
 
 // ---------- Salidas: GitHub, copiar, descargar ----------
 
-function urlGithub(nombreArchivo, json) {
+function urlArchivoNuevo(nombreArchivo, json) {
   const consulta = `filename=${encodeURIComponent(nombreArchivo)}&value=${encodeURIComponent(json)}`
   return `https://github.com/${REPO}/new/${RAMA}/${CARPETA}?${consulta}`
 }
@@ -125,20 +136,31 @@ function actualizarEnvio(ejercicio, json, errores) {
   )
   const valido = errores.length === 0
   btnCopiar.disabled = btnDescargar.disabled = !valido
+  btnGithub.textContent = editando ? 'Editar en GitHub' : 'Enviar a GitHub'
 
   if (!valido) {
     btnGithub.removeAttribute('href')
     btnGithub.setAttribute('aria-disabled', 'true')
-    btnGithub.textContent = 'Enviar a GitHub'
     notaEnvio.textContent = ''
     return
   }
-
   btnGithub.removeAttribute('aria-disabled')
-  const url = urlGithub(`${ejercicio.id}.json`, json)
+
+  if (editando) {
+    // GitHub no permite prellenar el editor de un archivo existente:
+    // al hacer clic se copia el JSON para pegarlo encima.
+    btnGithub.href = `https://github.com/${REPO}/edit/${RAMA}/${CARPETA}/${editando}.json`
+    const original = banco.find((e) => e.id === editando)
+    notaEnvio.textContent =
+      json === aJson(original)
+        ? 'Todavía no hay cambios respecto al archivo publicado.'
+        : 'Al abrir GitHub se copia el JSON: en el editor selecciona todo (Ctrl+A), pega (Ctrl+V) y confirma el commit.'
+    return
+  }
+
+  const url = urlArchivoNuevo(`${ejercicio.id}.json`, json)
   if (url.length <= LARGO_MAXIMO_URL) {
     btnGithub.href = url
-    btnGithub.textContent = 'Enviar a GitHub'
     notaEnvio.textContent = `Se creará el archivo ${CARPETA}/${ejercicio.id}.json.`
   } else {
     // Demasiado largo para un enlace: se sube el archivo descargado.
@@ -149,10 +171,16 @@ function actualizarEnvio(ejercicio, json, errores) {
   }
 }
 
+const copiarJson = () => navigator.clipboard.writeText(salidaJson.textContent)
+
+btnGithub.addEventListener('click', () => {
+  // En modo edición, el JSON va al portapapeles; el enlace se abre igual.
+  if (editando && btnGithub.hasAttribute('href')) copiarJson().catch(() => {})
+})
+
 btnCopiar.addEventListener('click', async () => {
-  const json = salidaJson.textContent
   try {
-    await navigator.clipboard.writeText(json)
+    await copiarJson()
     btnCopiar.textContent = '¡Copiado!'
   } catch {
     // Sin permiso de portapapeles: mostramos el JSON seleccionado para copiarlo a mano.
@@ -181,6 +209,7 @@ function guardarBorrador() {
     localStorage.setItem(
       CLAVE_BORRADOR,
       JSON.stringify({
+        editando,
         nivel: nivelElegido(),
         titulo: campoTitulo.value,
         id: campoId.value,
@@ -213,15 +242,62 @@ function llenarFormulario(datos) {
   ejemplos.forEach(agregarEjemplo)
 }
 
+// ---------- Nuevo / editar existente ----------
+
+// Llena el selector con el banco, agrupado por nivel.
+for (const nivel of [1, 2, 3]) {
+  const grupo = Object.assign(document.createElement('optgroup'), { label: NOMBRES_NIVEL[nivel] })
+  banco
+    .filter((e) => e.nivel === nivel)
+    .sort((a, b) => a.titulo.localeCompare(b.titulo, 'es'))
+    .forEach((e) => grupo.append(new Option(e.titulo, e.id)))
+  selectorEjercicio.append(grupo)
+}
+
+function aplicarModo() {
+  selectorEjercicio.value = editando ?? ''
+  tituloPagina.textContent = editando ? 'Editar un ejercicio' : 'Agregar un ejercicio'
+  campoId.readOnly = Boolean(editando)
+  ayudaId.textContent = editando ? AYUDA_ID_EDICION : AYUDA_ID_NUEVO
+  // La URL refleja el modo, para poder recargar o compartir el enlace.
+  const url = new URL(location.href)
+  if (editando) url.searchParams.set('editar', editando)
+  else url.searchParams.delete('editar')
+  history.replaceState(null, '', url)
+}
+
+// Pasa a editar un ejercicio del banco, o a uno nuevo si id es null.
+function cambiarA(id) {
+  editando = id
+  const ejercicio = banco.find((e) => e.id === id)
+  llenarFormulario(ejercicio ? { ...ejercicio, idManual: true } : null)
+  aplicarModo()
+  actualizar()
+}
+
+// ¿Hay algo escrito que se perdería al cambiar de ejercicio?
+function hayCambiosSinGuardar() {
+  if (editando) return aJson(construirEjercicio()) !== aJson(banco.find((e) => e.id === editando))
+  return Boolean(campoTitulo.value.trim() || campoEnunciado.value.trim())
+}
+
+selectorEjercicio.addEventListener('change', () => {
+  const elegido = selectorEjercicio.value || null
+  if (hayCambiosSinGuardar() && !confirm('Se perderá lo que escribiste en el formulario. ¿Continuar?')) {
+    selectorEjercicio.value = editando ?? ''
+    return
+  }
+  cambiarA(elegido)
+})
+
 $('#btn-limpiar').addEventListener('click', () => {
-  if (!confirm('¿Borrar todo lo escrito y empezar de nuevo?')) return
+  if (!confirm('¿Borrar todo lo escrito y empezar con un ejercicio nuevo?')) return
   try {
     localStorage.removeItem(CLAVE_BORRADOR)
   } catch {
     // Nada que borrar.
   }
-  llenarFormulario(null)
-  actualizar()
+  cambiarA(null)
 })
 
 // ---------- Actualización en vivo ----------
@@ -232,7 +308,7 @@ function actualizar() {
   if (!idManual) campoId.value = generarId(nivelElegido(), campoTitulo.value)
 
   const ejercicio = construirEjercicio()
-  const json = JSON.stringify(ejercicio, null, 2) + '\n'
+  const json = aJson(ejercicio)
   salidaJson.textContent = json
   actualizarEnvio(ejercicio, json, validar(ejercicio))
   guardarBorrador()
@@ -241,7 +317,7 @@ function actualizar() {
   clearTimeout(esperaVistaPrevia)
   esperaVistaPrevia = setTimeout(() => {
     const previa = { ...ejercicio, titulo: ejercicio.titulo || 'Sin título' }
-    vistaPrevia.replaceChildren(crearTarjeta(previa, 1))
+    vistaPrevia.replaceChildren(crearTarjeta(previa))
   }, 200)
 }
 
@@ -255,6 +331,19 @@ $('#btn-agregar-ejemplo').addEventListener('click', () => {
   actualizar()
 })
 
+// ---------- Arranque ----------
+
 conectarBotonTema($('#btn-tema'))
-llenarFormulario(cargarBorrador())
-actualizar()
+
+// ?editar=<id> carga ese ejercicio, salvo que haya un borrador sin terminar del mismo.
+const pedido = new URLSearchParams(location.search).get('editar')
+const borrador = cargarBorrador()
+
+if (pedido && idsExistentes.has(pedido) && borrador?.editando !== pedido) {
+  cambiarA(pedido)
+} else {
+  editando = idsExistentes.has(borrador?.editando) ? borrador.editando : null
+  llenarFormulario(borrador)
+  aplicarModo()
+  actualizar()
+}

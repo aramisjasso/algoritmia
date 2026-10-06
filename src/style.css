@@ -565,7 +565,8 @@ h3 {
 }
 
 .formulario input[type='text'],
-.formulario textarea {
+.formulario textarea,
+.selector-ejercicio select {
   width: 100%;
   font: inherit;
   color: var(--texto);
@@ -583,10 +584,62 @@ h3 {
 }
 
 .formulario input:focus,
-.formulario textarea:focus {
+.formulario textarea:focus,
+.selector-ejercicio select:focus {
   outline: 2px solid var(--enlace);
   outline-offset: -1px;
   border-color: transparent;
+}
+
+.formulario input[readonly] {
+  color: var(--texto-suave);
+  background: var(--codigo);
+}
+
+.selector-ejercicio {
+  max-width: 28rem;
+  margin-bottom: 2rem;
+}
+
+.selector-ejercicio select {
+  cursor: pointer;
+}
+
+/* Catálogo del banco (ver.html sin id) */
+.catalogo h3 {
+  margin: 2rem 0 0.75rem;
+  color: var(--nivel);
+}
+
+.catalogo ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.25rem;
+}
+
+.catalogo li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25rem 0.75rem;
+  padding: 0.5rem 0.75rem;
+  border-left: 3px solid var(--nivel);
+  background: var(--superficie);
+}
+
+.catalogo a {
+  color: var(--texto);
+  font-weight: 600;
+}
+
+.catalogo a:hover {
+  color: var(--enlace);
+}
+
+.catalogo small {
+  color: var(--texto-suave);
 }
 
 .selector-nivel {
