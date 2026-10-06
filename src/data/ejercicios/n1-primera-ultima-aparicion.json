@@ -2,7 +2,7 @@
   "id": "n1-primera-ultima-aparicion",
   "nivel": 1,
   "titulo": "Primera y última aparición",
-  "enunciado": "Dado un arreglo de $n$ enteros y un valor `x`, devuelve las posiciones (empezando en 0) de la **primera** y la **última** aparición de `x` en el arreglo. Si `x` no aparece, devuelve `-1 -1`.\n\nResuélvelo con un solo recorrido del arreglo, en tiempo $O(n)$ y memoria $O(1)$.\n\n**Entrada:** en la primera línea, `n` y `x`; en la segunda, los $n$ enteros.\n\n**Restricciones:** $1 \\le n \\le 10^5$.",
+  "enunciado": "Dado un arreglo de $n$ enteros y un valor `x`, devuelve las posiciones (empezando en 0) de la **primera** y la **última** aparición de `x` en el arreglo. Si `x` no aparece, devuelve el mensaje `El número no está en el arreglo`.\n\nResuélvelo con un solo recorrido del arreglo.\n\n**Entrada:** en la primera línea, `n` y `x`; en la segunda, los $n$ enteros.\n\n**Restricciones:** $1 \\le n \\le 10^5$.",
   "ejemplos": [
     {
       "entrada": "7 4\n3 4 1 4 9 4 2",
@@ -11,7 +11,7 @@
     },
     {
       "entrada": "3 8\n1 2 3",
-      "salida": "-1 -1"
+      "salida": "El número no está en el arreglo"
     }
   ]
 }
