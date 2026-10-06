@@ -1,0 +1,21 @@
+{
+  "id": "n2-ordenar-lista",
+  "nivel": 2,
+  "titulo": "Ordenar una lista",
+  "enunciado": "Implementa una función que, dada una lista de números, devuelva **otra lista** con los mismos números ordenados de menor a mayor. No modifiques la lista original y **no uses** `sort`, `sorted` ni otra función de ordenamiento ya hecha.\n\n```python\ndef ordenar(numeros: list[int]) -> list[int]:\n    ...\n```\n\n> Pista: en una lista ordenada, el elemento en la posición $x$ siempre es el mínimo de la sublista que empieza en $x$.\n\nReto extra: ¿cuál es la complejidad de tu solución? ¿Se puede hacer en $O(n \\log n)$?",
+  "ejemplos": [
+    {
+      "entrada": "numeros = [3, 6, -1]",
+      "salida": "[-1, 3, 6]"
+    },
+    {
+      "entrada": "numeros = [5, 2, 5, 1]",
+      "salida": "[1, 2, 5, 5]",
+      "explicacion": "Los repetidos se conservan."
+    },
+    {
+      "entrada": "numeros = []",
+      "salida": "[]"
+    }
+  ]
+}

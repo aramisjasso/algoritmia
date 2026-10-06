@@ -1,0 +1,21 @@
+{
+  "id": "n1-fibonacci-limite",
+  "nivel": 1,
+  "titulo": "Fibonacci hasta un límite",
+  "enunciado": "La serie de Fibonacci empieza con $0$ y $1$, y cada término siguiente es la suma de los dos anteriores: $0, 1, 1, 2, 3, 5, 8, 13, \\dots$\n\nDado un número límite, devuelve en una lista todos los términos de la serie que sean **estrictamente menores** que el límite, en orden.\n\n```python\ndef fibonacci_hasta(limite: int) -> list[int]:\n    ...\n```\n\n**Restricciones:** $0 \\le \\text{limite} \\le 10^{18}$.",
+  "ejemplos": [
+    {
+      "entrada": "limite = 10",
+      "salida": "[0, 1, 1, 2, 3, 5, 8]"
+    },
+    {
+      "entrada": "limite = 2",
+      "salida": "[0, 1, 1]"
+    },
+    {
+      "entrada": "limite = 0",
+      "salida": "[]",
+      "explicacion": "Ningún término es menor que 0."
+    }
+  ]
+}

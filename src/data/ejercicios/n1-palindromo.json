@@ -2,19 +2,21 @@
   "id": "n1-palindromo",
   "nivel": 1,
   "titulo": "¿Es palíndromo?",
-  "enunciado": "Una frase es **palíndromo** si se lee igual de izquierda a derecha que de derecha a izquierda, ignorando espacios, signos de puntuación y diferencias entre mayúsculas y minúsculas.\n\nImplementa la función:\n\n```python\ndef es_palindromo(frase: str) -> bool:\n    ...\n```\n\nPuedes suponer que la frase solo contiene letras sin acentos, dígitos, espacios y signos de puntuación. Intenta hacerlo con dos índices que avanzan desde los extremos, sin construir una cadena nueva, en $O(n)$.",
+  "enunciado": "Queremos saber si una frase es **palíndromo**: si se lee igual de izquierda a derecha que de derecha a izquierda, ignorando espacios, signos de puntuación y diferencias entre mayúsculas y minúsculas. Solo cuentan las **letras y los dígitos**.\n\nImplementa una función que devuelva `True` si, al conservar solo los caracteres alfanuméricos y pasarlos a minúsculas, la frase se lee igual al revés; de lo contrario, `False`.\n\n```python\ndef es_palindromo(frase: str) -> bool:\n    ...\n```\n\nReto extra: hazlo con dos índices que avanzan desde los extremos, sin construir una cadena nueva, en $O(n)$ y memoria $O(1)$.",
   "ejemplos": [
     {
-      "entrada": "\"Anita lava la tina\"",
-      "salida": "True"
+      "entrada": "frase = \"Anita lava la tina\"",
+      "salida": "True",
+      "explicacion": "Texto limpio: \"anitalavalatina\", que se lee igual al revés."
     },
     {
-      "entrada": "\"A man, a plan, a canal: Panama\"",
-      "salida": "True"
+      "entrada": "frase = \"Hola, mundo\"",
+      "salida": "False",
+      "explicacion": "Texto limpio: \"holamundo\"; al revés es \"odnumaloh\"."
     },
     {
-      "entrada": "\"algoritmo\"",
-      "salida": "False"
+      "entrada": "frase = \"A man, a plan, a canal: Panama\"",
+      "salida": "True"
     }
   ]
 }

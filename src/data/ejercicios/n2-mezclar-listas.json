@@ -1,0 +1,20 @@
+{
+  "id": "n2-mezclar-listas",
+  "nivel": 2,
+  "titulo": "Mezclar dos listas ordenadas",
+  "enunciado": "Dadas dos listas **ya ordenadas** de menor a mayor, devuelve una lista nueva con los elementos de ambas, también ordenada.\n\n```python\ndef mezclar(lista: list[int], otra: list[int]) -> list[int]:\n    ...\n```\n\nAprovecha que ya vienen ordenadas: resuélvelo en $O(n + m)$ con un índice en cada lista, sin volver a ordenar el resultado.",
+  "ejemplos": [
+    {
+      "entrada": "lista = [1, 4, 7]\notra = [2, 3, 8]",
+      "salida": "[1, 2, 3, 4, 7, 8]"
+    },
+    {
+      "entrada": "lista = []\notra = [1, 2]",
+      "salida": "[1, 2]"
+    },
+    {
+      "entrada": "lista = [1, 1]\notra = [1]",
+      "salida": "[1, 1, 1]"
+    }
+  ]
+}

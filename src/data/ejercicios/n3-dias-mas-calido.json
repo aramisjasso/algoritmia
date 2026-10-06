@@ -1,0 +1,17 @@
+{
+  "id": "n3-dias-mas-calido",
+  "nivel": 3,
+  "titulo": "Días hasta un día más cálido",
+  "enunciado": "Dada una lista de temperaturas diarias, devuelve para cada día **cuántos días hay que esperar** hasta encontrar una temperatura estrictamente mayor. Si no hay ningún día posterior más cálido, el valor para ese día es $0$.\n\n```python\ndef dias_hasta_calor(temps: list[int]) -> list[int]:\n    ...\n```\n\nBuscar hacia adelante desde cada día cuesta $O(n^2)$ en el peor caso. Busca una solución en $O(n)$.\n\n**Restricciones:** $1 \\le n \\le 10^5$.",
+  "ejemplos": [
+    {
+      "entrada": "temps = [73, 74, 75, 71, 69, 72, 76, 73]",
+      "salida": "[1, 1, 4, 2, 1, 1, 0, 0]",
+      "explicacion": "Día 2: 75 → 76 en el índice 6, espera 4. Día 3: 71 → 72 en el índice 5, espera 2. Los días 6 y 7 no tienen un día posterior más cálido."
+    },
+    {
+      "entrada": "temps = [30, 40, 50, 60]",
+      "salida": "[1, 1, 1, 0]"
+    }
+  ]
+}

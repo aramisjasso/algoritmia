@@ -1,0 +1,23 @@
+{
+  "id": "n1-altitud-dron",
+  "nivel": 1,
+  "titulo": "Altitud de un dron",
+  "enunciado": "Un dron registra los cambios de altitud en cada instante: un entero positivo es una subida y uno negativo, una bajada. El dron parte del nivel del suelo (altitud $0$). Queremos saber si en algún momento quedó **por debajo del suelo**.\n\nImplementa una función que devuelva `True` si en algún momento la altitud acumulada fue **estrictamente menor que cero**; de lo contrario, `False`. Tocar exactamente el suelo (altitud $0$) no cuenta.\n\n```python\ndef bajo_el_suelo(cambios: list[int]) -> bool:\n    ...\n```",
+  "ejemplos": [
+    {
+      "entrada": "cambios = [10, -4, -3, 5]",
+      "salida": "False",
+      "explicacion": "Altitud: 0 → 10 → 6 → 3 → 8; nunca baja de 0."
+    },
+    {
+      "entrada": "cambios = [5, -2, -6, 4]",
+      "salida": "True",
+      "explicacion": "Altitud: 0 → 5 → 3 → −3; ahí queda por debajo del suelo."
+    },
+    {
+      "entrada": "cambios = [3, -3, 2]",
+      "salida": "False",
+      "explicacion": "Toca el suelo (0) pero no baja de él."
+    }
+  ]
+}

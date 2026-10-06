@@ -1,0 +1,18 @@
+{
+  "id": "n1-primer-caracter-unico",
+  "nivel": 1,
+  "titulo": "Primer carácter único",
+  "enunciado": "Un sistema de registro recibe un código en forma de cadena de texto. Queremos encontrar el **primer carácter que aparece una sola vez** en toda la cadena.\n\nImplementa una función que devuelva el índice (empezando en $0$) del primer carácter que no se repite. Si todos los caracteres se repiten, devuelve `-1`.\n\n```python\ndef primer_unico(codigo: str) -> int:\n    ...\n```",
+  "ejemplos": [
+    {
+      "entrada": "codigo = \"aabcbd\"",
+      "salida": "3",
+      "explicacion": "Conteo: a → 2, b → 2, c → 1, d → 1. El primero con una sola aparición es \"c\"."
+    },
+    {
+      "entrada": "codigo = \"abab\"",
+      "salida": "-1",
+      "explicacion": "Todos los caracteres aparecen dos veces."
+    }
+  ]
+}

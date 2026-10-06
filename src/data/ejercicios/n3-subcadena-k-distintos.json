@@ -1,0 +1,18 @@
+{
+  "id": "n3-subcadena-k-distintos",
+  "nivel": 3,
+  "titulo": "Subcadena más larga con pocos distintos",
+  "enunciado": "Dada una cadena $s$ y un entero $k$, encuentra la longitud de la **subcadena contigua más larga** que contenga como máximo $k$ caracteres distintos.\n\n```python\ndef subcadena_larga(s: str, k: int) -> int:\n    ...\n```\n\nComplejidad esperada: $O(n)$. Revisar todas las subcadenas cuesta al menos $O(n^2)$.\n\n**Restricciones:** $1 \\le |s| \\le 10^5$, $0 \\le k \\le 26$.",
+  "ejemplos": [
+    {
+      "entrada": "s = \"eceba\"\nk = 2",
+      "salida": "3",
+      "explicacion": "La mejor es \"ece\" (distintos: e, c). Agregar la \"b\" ya daría 3 distintos."
+    },
+    {
+      "entrada": "s = \"aaaa\"\nk = 1",
+      "salida": "4",
+      "explicacion": "Toda la cadena tiene un único carácter distinto."
+    }
+  ]
+}

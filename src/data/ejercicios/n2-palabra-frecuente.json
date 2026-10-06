@@ -1,0 +1,18 @@
+{
+  "id": "n2-palabra-frecuente",
+  "nivel": 2,
+  "titulo": "Palabra más frecuente",
+  "enunciado": "Se recibe una lista de palabras en minúsculas. Encuentra la palabra que aparece **más veces**. Si hay empate, devuelve la **menor en orden alfabético**.\n\n```python\ndef palabra_frecuente(palabras: list[str]) -> str:\n    ...\n```",
+  "ejemplos": [
+    {
+      "entrada": "palabras = [\"sol\", \"luna\", \"sol\", \"mar\", \"luna\", \"mar\"]",
+      "salida": "\"luna\"",
+      "explicacion": "Las tres aparecen 2 veces; la menor alfabéticamente es \"luna\"."
+    },
+    {
+      "entrada": "palabras = [\"casa\", \"perro\", \"casa\", \"gato\", \"casa\", \"perro\"]",
+      "salida": "\"casa\"",
+      "explicacion": "Conteo: casa → 3, perro → 2, gato → 1."
+    }
+  ]
+}

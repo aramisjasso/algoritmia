@@ -1,0 +1,18 @@
+{
+  "id": "n2-mejor-vendedor",
+  "nivel": 2,
+  "titulo": "Ventas por vendedor",
+  "enunciado": "Una tienda registra sus ventas como una lista de pares `(id_vendedor, monto)`, donde `monto` es un entero positivo (venta) o negativo (devolución).\n\nCalcula el total neto de cada vendedor y devuelve el `id` del vendedor con el **mayor total**. Si hay empate, devuelve el de **menor id**.\n\n```python\ndef mejor_vendedor(ventas: list[tuple[int, int]]) -> int:\n    ...\n```\n\nResuélvelo en $O(n)$ con un diccionario, recorriendo la lista una sola vez para acumular.",
+  "ejemplos": [
+    {
+      "entrada": "ventas = [(1, 100), (2, 50), (1, -30), (2, 40), (3, 90)]",
+      "salida": "2",
+      "explicacion": "Totales: vendedor 1 → 70, vendedor 2 → 90, vendedor 3 → 90. Empatan 2 y 3; se elige el de menor id."
+    },
+    {
+      "entrada": "ventas = [(5, 20), (4, 10), (5, -15), (4, 5)]",
+      "salida": "4",
+      "explicacion": "Totales: vendedor 4 → 15, vendedor 5 → 5."
+    }
+  ]
+}
