@@ -1,0 +1,20 @@
+{
+  "id": "n3-eliminar-parentesis-invalidos",
+  "nivel": 3,
+  "titulo": "Eliminar paréntesis inválidos",
+  "enunciado": "Dada una cadena $s$ que contiene paréntesis y letras, elimina el número mínimo de paréntesis inválidos para hacer que la cadena de entrada sea válida.\n\nRetorna una lista de cadenas únicas que sean válidas con el número mínimo de eliminaciones. Puedes retornar la respuesta en cualquier orden.\n\n1 <= longitud(s)<= 25\n\ns se compone de letras en inglés en minúscula y paréntesis'(' y ')'.\n\nHabrá como máximo 20 paréntesis en s.",
+  "ejemplos": [
+    {
+      "entrada": " s = \"()())()\"",
+      "salida": "[\"(())()\",\"()()()\"]"
+    },
+    {
+      "entrada": "s = \"(a)())()\"",
+      "salida": "[\"(a())()\",\"(a)()()\"]"
+    },
+    {
+      "entrada": "s = \")(\"",
+      "salida": "[\"\"]"
+    }
+  ]
+}
