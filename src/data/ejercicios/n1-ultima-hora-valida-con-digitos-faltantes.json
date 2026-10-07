@@ -1,0 +1,21 @@
+{
+  "id": "n1-ultima-hora-valida-con-digitos-faltantes",
+  "nivel": 1,
+  "titulo": "Última hora válida con dígitos faltantes",
+  "enunciado": "Se te da una string $tiempo$ en la forma de $hh:mm$, donde algunos de los dígitos de la cadena están escondidos (representados por '?')\n\nLos tiempos válidos son aquellos exclusivamente entre 00:00 y 23:59\n\nRetorna la última hora válida que puedes obtener de $tiempo$ al reemplazar los dígitos escondidos.",
+  "ejemplos": [
+    {
+      "entrada": "tiempo = \"2?:?0\"",
+      "salida": "\"23:50\"",
+      "explicacion": "La última hora que empieza con el dígito '2' es 23 y el último minuto que termina con el dígito '0' es 50."
+    },
+    {
+      "entrada": "tiempo = \"0?:3?\"",
+      "salida": "\"09:39\""
+    },
+    {
+      "entrada": "tiempo = \"1?:22\"",
+      "salida": "\"19:22\""
+    }
+  ]
+}
